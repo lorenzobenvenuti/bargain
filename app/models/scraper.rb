@@ -1,6 +1,7 @@
 class Scraper < ApplicationRecord
   has_many :hosts, dependent: :destroy
+  has_many :rules, dependent: :destroy
 
-  validates_presence_of :name, :price_selector, :hosts
+  validates_presence_of :name, :hosts, :rules
   validates_uniqueness_of :name
 end

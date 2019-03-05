@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_05_082407) do
+ActiveRecord::Schema.define(version: 2019_03_05_153054) do
 
   create_table "hosts", force: :cascade do |t|
     t.string "host"
@@ -20,10 +20,17 @@ ActiveRecord::Schema.define(version: 2019_03_05_082407) do
     t.index ["scraper_id"], name: "index_hosts_on_scraper_id"
   end
 
+  create_table "rules", force: :cascade do |t|
+    t.string "rule_type"
+    t.string "rule_args"
+    t.integer "scraper_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["scraper_id"], name: "index_rules_on_scraper_id"
+  end
+
   create_table "scrapers", force: :cascade do |t|
     t.string "name"
-    t.string "price_selector"
-    t.string "price_regex"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
