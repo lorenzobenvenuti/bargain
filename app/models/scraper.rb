@@ -4,4 +4,6 @@ class Scraper < ApplicationRecord
 
   validates_presence_of :name, :hosts, :rules
   validates_uniqueness_of :name
+
+  scope :for_host, ->(host) { joins(:hosts).where(hosts: { host: host }) }
 end
