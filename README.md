@@ -1,3 +1,8 @@
+# TODO
+
+* Spread scrapers on multiple queues to avoid throttling
+* Use *Patron* or *Typhoeus* to increase *Elasticsearch* client performance
+
 # README
 
 This README would normally document whatever steps are necessary to get the

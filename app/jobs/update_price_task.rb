@@ -5,7 +5,7 @@ class UpdatePriceTask
       service = ScraperService.for_host(URI(item.url).host)
       price = service.get_price(item.url)
       Crono.logger.info("Price = #{price}")
+      PriceHistoryService.new.update_price(item, price)
     end
-    Crono.logger.info("Writing to #{Rails.configuration.x.elasticsearch_url}")
   end
 end
