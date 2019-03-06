@@ -4,4 +4,10 @@ Rails.application.routes.draw do
       get 'test'
     end
   end
+
+  resources :items, except: [:new, :edit] do
+    member do
+      get 'price'
+    end
+  end
 end
