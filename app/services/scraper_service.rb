@@ -127,7 +127,9 @@ class ScraperService
   def get_price(url)
     result = @web_page_renderer_factory.web_page_renderer.render(url)
     @scraper.rules.each do |rule|
+      Rails.logger.debug("Applying rule #{rule.rule_type} with args #{rule.rule_args} to #{result}")
       result = @rule_factory.for_rule(rule).apply(result)
+      Rails.logger.debug("Rule gave #{result}")
     end
     result.to_f
   end

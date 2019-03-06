@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_06_140919) do
+ActiveRecord::Schema.define(version: 2019_03_06_163221) do
 
   create_table "crono_jobs", force: :cascade do |t|
     t.string "job_id", null: false
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2019_03_06_140919) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "last_price"
   end
 
   create_table "rules", force: :cascade do |t|
