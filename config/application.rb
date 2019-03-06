@@ -36,5 +36,7 @@ module PriceTracker
 
     config.x.web_page_renderer.type = 'rendertron'
     config.x.web_page_renderer.rendertron_url = 'http://localhost:8080'
+
+    config.x.elasticsearch_url = 'http://localhost:9200'
   end
 end
