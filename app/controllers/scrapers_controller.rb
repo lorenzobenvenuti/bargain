@@ -28,10 +28,8 @@ class ScrapersController < ApplicationController
   end
 
   def test
-    host = URI(params[:url]).host
-    scrapers = Scraper.for_host(host)
-    raise "Invalid host" if scrapers.empty?
-    result = ScraperService.new(@scraper).get_price(params[:url])
+    raise 'Must specify an url' if params[:url].nil?
+    result = ScraperService.for_scraper(@scraper).get_price(params[:url])
     render json: { price: result }, status: :ok
   end
 

@@ -53,26 +53,36 @@ class SubRule
 end
 
 class RuleFactory
-  def rule(rule_model)
-    case rule_model.rule_type
+  def for_rule(rule)
+    case rule.rule_type
     when 'css'
-      return CssRule.new(rule_model.rule_args)
+      return CssRule.new(rule.rule_args)
     when 'xpath'
-      return XPathRule.new(rule_model.rule_args)
+      return XPathRule.new(rule.rule_args)
     when 'text'
       return TextRule.new
     when 'attr'
-      return AttrRule.new(rule_model.rule_args)
+      return AttrRule.new(rule.rule_args)
     when 'sub'
-      tokens = rule_model.rule_args.split('/')
+      tokens = rule.rule_args.split('/')
       return SubRule.new(tokens[1], tokens[2])
     else
-      raise "Invalid value #{rule_model.rule_type}"
+      raise "Invalid value #{rule.rule_type}"
     end
   end
 end
 
 class ScraperService
+  def self.for_scraper(scraper)
+    ScraperService.new(scraper)
+  end
+
+  def self.for_host(host)
+    scraper = Scraper.for_host(host)
+    return nil if scraper.nil?
+    return ScraperService.for_scraper(scraper)
+  end
+
   def initialize(scraper, rule_factory = RuleFactory.new)
     @scraper = scraper
     @rule_factory = rule_factory
@@ -82,7 +92,7 @@ class ScraperService
     response = Faraday.get(url)
     result = response.body
     @scraper.rules.each do |rule|
-      result = @rule_factory.rule(rule).apply(result)
+      result = @rule_factory.for_rule(rule).apply(result)
     end
     result.to_f
   end
