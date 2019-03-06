@@ -15,4 +15,4 @@
 #
 
 
-Crono.perform(UpdatePriceTask).every 15.minutes
+Crono.perform(UpdatePriceTask).every 20.minutes
