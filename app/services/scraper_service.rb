@@ -89,6 +89,8 @@ class ScraperService
   end
 
   def get_price(url)
+    # TODO: since some web page could require javascript to be prooperly
+    # rendered, this should be moved to a separate service (rendertron?)
     response = Faraday.get(url)
     result = response.body
     @scraper.rules.each do |rule|
