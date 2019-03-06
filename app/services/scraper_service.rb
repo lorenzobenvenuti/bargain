@@ -1,4 +1,5 @@
 require 'faraday'
+require 'logger'
 require 'nokogiri'
 
 class CssRule
@@ -72,6 +73,39 @@ class RuleFactory
   end
 end
 
+class SimpleWebPageRenderer
+  def render(url)
+    response = Faraday.get(url)
+    response.body
+  end
+end
+
+class RendertronWebPageRenderer
+  def initialize(rendertron_url)
+    @rendertron_url = rendertron_url
+  end
+
+  def render(url)
+    encoded_url = URI.encode_www_form_component(url)
+    response = Faraday.get("#{@rendertron_url}/render/#{encoded_url}")
+    response.body
+  end
+end
+
+class WebPageRendererFactory
+  def web_page_renderer
+    config = Rails.configuration.x.web_page_renderer
+    case config.type
+    when 'simple'
+      Rails.logger.info("Rendering page using simple renderer")
+      return SimpleWebPageRenderer.new
+    when 'rendertron'
+      Rails.logger.info("Rendering page using Rendetron at #{config.rendertron_url}")
+      return RendertronWebPageRenderer.new(config.rendertron_url)
+    end
+  end
+end
+
 class ScraperService
   def self.for_scraper(scraper)
     ScraperService.new(scraper)
@@ -80,19 +114,18 @@ class ScraperService
   def self.for_host(host)
     scraper = Scraper.for_host(host)
     return nil if scraper.nil?
-    return ScraperService.for_scraper(scraper)
+    ScraperService.for_scraper(scraper)
   end
 
-  def initialize(scraper, rule_factory = RuleFactory.new)
+  def initialize(scraper, rule_factory = RuleFactory.new,
+                web_page_renderer_factory = WebPageRendererFactory.new)
     @scraper = scraper
     @rule_factory = rule_factory
+    @web_page_renderer_factory = web_page_renderer_factory
   end
 
   def get_price(url)
-    # TODO: since some web page could require javascript to be prooperly
-    # rendered, this should be moved to a separate service (rendertron?)
-    response = Faraday.get(url)
-    result = response.body
+    result = @web_page_renderer_factory.web_page_renderer.render(url)
     @scraper.rules.each do |rule|
       result = @rule_factory.for_rule(rule).apply(result)
     end
