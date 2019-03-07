@@ -36,26 +36,13 @@ class ScrapersController < ApplicationController
   private
 
   def update_associations
-    update_hosts
-    update_rules
-  end
-
-  def update_hosts
-    unless hosts_params[:hosts].nil?
-      @scraper.hosts.clear
-      hosts_params[:hosts].each do |host|
-        @scraper.hosts << Host.new(host)
-      end
+    params_to_associations(hosts_params[:hosts], @scraper.hosts) do |h|
+      Host.new(h)
     end
-  end
-
-  def update_rules
-    unless rules_params[:rules].nil?
-      @scraper.rules.clear
-      rules_params[:rules].each do |rule|
-        @scraper.rules << Rule.new(rule)
-      end
+    params_to_associations(rules_params[:rules], @scraper.rules) do |r|
+      Rule.new(r)
     end
+    puts "Scraper rules #{@scraper.rules}"
   end
 
   def scraper_params

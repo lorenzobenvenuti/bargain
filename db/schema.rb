@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_07_133914) do
+ActiveRecord::Schema.define(version: 2019_03_07_144725) do
 
   create_table "crono_jobs", force: :cascade do |t|
     t.string "job_id", null: false
@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(version: 2019_03_07_133914) do
     t.float "last_price"
     t.integer "interval", default: 1440
     t.datetime "last_price_update"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "notification_type"
+    t.string "notification_args"
+    t.float "threshold"
+    t.integer "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_notifications_on_item_id"
   end
 
   create_table "rules", force: :cascade do |t|

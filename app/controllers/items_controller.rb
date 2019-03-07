@@ -6,7 +6,9 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.create!(item_params)
+    @item = Item.new(item_params)
+    update_notifications
+    @item.save!
     render json: @item, status: :created
   end
 
@@ -15,6 +17,7 @@ class ItemsController < ApplicationController
   end
 
   def update
+    update_notifications
     @item.update!(item_params)
     head :no_content
   end
@@ -32,8 +35,19 @@ class ItemsController < ApplicationController
 
   private
 
+  def update_notifications
+    notifications = notifications_params[:notifications]
+    params_to_associations(notifications, @item.notifications) do |n|
+      Notification.new(n)
+    end
+  end
+
   def item_params
     params.permit(:name, :url)
+  end
+
+  def notifications_params
+    params.permit(notifications: [:notification_type, :notification_args, :threshold])
   end
 
   def set_item
