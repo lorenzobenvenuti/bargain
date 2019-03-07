@@ -10,7 +10,7 @@ class ElasticSearchBackend
 
   def store(doc)
     client = Elasticsearch::Client.new(url: @url, log: true)
-    client.create(index: @index, type: @type, body: doc)
+    client.create(index: Time.now.strftime(@index), type: @type, body: doc)
   end
 end
 
