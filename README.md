@@ -2,6 +2,9 @@
 
 * Spread scrapers on multiple queues to avoid throttling
 * Use *Patron* or *Typhoeus* to increase *Elasticsearch* client performance
+* Rotate Elasticsearch index (i.e.: accept a {year}, {month}, {day} parameters
+  in index name)
+* Implement notifications
 
 # README
 
