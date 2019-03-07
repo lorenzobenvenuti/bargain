@@ -1,19 +1,19 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :update, :destroy, :price]
+  before_action :set_item, only: [:show, :update, :destroy, :price, :notify]
 
   def index
-    render json: Item.all, status: :ok
+    render json: Item.all, include: :notifications, status: :ok
   end
 
   def create
     @item = Item.new(item_params)
     update_notifications
     @item.save!
-    render json: @item, status: :created
+    render json: @item, include: :notifications, status: :created
   end
 
   def show
-    render json: @item, status: :ok
+    render json: @item, include: :notifications, status: :ok
   end
 
   def update

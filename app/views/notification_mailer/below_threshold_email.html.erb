@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    Item <%= @item.name %> price is now <%= @item.last_price %>,
+    BELOW the configured threshold (<%= @notification.threshold %>)
+    <br/>
+    Click <a href="<%= @item.url %>">here</a> to see the item.
+  </body>
+</html>
