@@ -27,5 +27,5 @@ production:
   pool: 5
   username: <%= ENV['PRICE_TRACKER_DB_USER'] %>
   password: <%= ENV['PRICE_TRACKER_DB_PASSWORD'] %>
-  host: <%= ENV['PRICE_TRACKER_DB_HOST'] %>
-  port: <%= ENV['PRICE_TRACKER_DB_PORT'] %>
+  host: <%= ENV['PRICE_TRACKER_DB_HOST'] || 'localhost' %>
+  port: <%= ENV['PRICE_TRACKER_DB_PORT'] || 5432 %>
