@@ -8,7 +8,7 @@ class Notification < ApplicationRecord
     !prev_price.nil? && prev_price <= threshold && curr_price > threshold
   end
 
-  def price_went_below_threshold?(curr_price, prev_price)
-    (prev_price.nil? || prev_price > threshold) && curr_price <= threshold
+  def price_is_below_threshold?(curr_price, prev_price)
+    curr_price <= threshold && (prev_price.nil? || prev_price != curr_price)
   end
 end

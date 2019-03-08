@@ -34,6 +34,13 @@ module PriceTracker
 
     config.logger = Logger.new(STDOUT)
 
+
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address:              ENV['SMTP_HOST'] || 'localhost',
+      port:                 ENV['SMTP_PORT'] || 25
+    }
+
     config.x.web_page_renderer.type = 'rendertron'
     config.x.web_page_renderer.rendertron_url = ENV['RENDERTRON_URL'] || 'http://localhost:8080'
 

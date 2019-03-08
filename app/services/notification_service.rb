@@ -20,7 +20,7 @@ class NotificationService
   def handle_notification(notification, prev_price)
     if notification.price_went_above_threshold?(@item.last_price, prev_price)
       send_above_threshold_notification(notification)
-    elsif notification.price_went_below_threshold?(@item.last_price, prev_price)
+    elsif notification.price_is_below_threshold?(@item.last_price, prev_price)
       send_below_threshold_notification(notification)
     end
   end

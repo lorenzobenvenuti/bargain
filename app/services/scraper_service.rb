@@ -112,7 +112,7 @@ class ScraperService
   end
 
   def self.for_host(host)
-    scraper = Scraper.for_host(host)
+    scraper = Scraper.for_host(host).first
     return nil if scraper.nil?
     ScraperService.for_scraper(scraper)
   end
