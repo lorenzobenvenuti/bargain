@@ -35,10 +35,10 @@ module PriceTracker
     config.logger = Logger.new(STDOUT)
 
     config.x.web_page_renderer.type = 'rendertron'
-    config.x.web_page_renderer.rendertron_url = 'http://localhost:8080'
+    config.x.web_page_renderer.rendertron_url = ENV['RENDERTRON_URL'] || 'http://localhost:8080'
 
-    config.x.elasticsearch_url = 'http://localhost:9200'
-    config.x.elasticsearch_index = 'prices-%Y%m'
-    config.x.elasticsearch_price = 'price'
+    config.x.elasticsearch_url = ENV['ELASTICSEARCH_URL'] || 'http://localhost:9200'
+    config.x.elasticsearch_index = ENV['ELASTICSEARCH_INDEX'] || 'prices-%Y%m'
+    config.x.elasticsearch_doc_type = ENV['ELASTICSEARCH_DOCTYPE'] || 'price'
   end
 end

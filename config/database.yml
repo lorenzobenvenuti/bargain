@@ -21,5 +21,11 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: <%= ENV['PRICE_TRACKER_DB_NAME'] %>
+  pool: 5
+  username: <%= ENV['PRICE_TRACKER_DB_USER'] %>
+  password: <%= ENV['PRICE_TRACKER_DB_PASSWORD'] %>
+  host: <%= ENV['PRICE_TRACKER_DB_HOST'] %>
+  port: <%= ENV['PRICE_TRACKER_DB_PORT'] %>
