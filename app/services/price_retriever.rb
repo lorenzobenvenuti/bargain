@@ -106,15 +106,15 @@ class WebPageRendererFactory
   end
 end
 
-class ScraperService
+class PriceRetriever
   def self.for_scraper(scraper)
-    ScraperService.new(scraper)
+    PriceRetriever.new(scraper)
   end
 
   def self.for_host(host)
     scraper = Scraper.for_host(host).first
     return nil if scraper.nil?
-    ScraperService.for_scraper(scraper)
+    PriceRetriever.for_scraper(scraper)
   end
 
   def initialize(scraper, rule_factory = RuleFactory.new,

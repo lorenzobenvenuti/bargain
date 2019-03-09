@@ -29,7 +29,7 @@ class ScrapersController < ApplicationController
 
   def test
     raise 'Must specify an url' if params[:url].nil?
-    result = ScraperService.for_scraper(@scraper).get_price(params[:url])
+    result = PriceRetriever.for_scraper(@scraper).get_price(params[:url])
     render json: { price: result }, status: :ok
   end
 

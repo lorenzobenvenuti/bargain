@@ -29,7 +29,7 @@ class ItemsController < ApplicationController
 
   def price
     host = URI(@item.url).host
-    result = ScraperService.for_host(host).get_price(@item.url)
+    result = PriceRetriever.for_host(host).get_price(@item.url)
     render json: { price: result }, status: :ok
   end
 

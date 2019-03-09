@@ -1,7 +1,7 @@
 class UpdatePriceTask
   def update_price(item)
     Crono.logger.info("Retrieving price for #{item.name}")
-    service = ScraperService.for_host(URI(item.url).host)
+    service = PriceRetriever.for_host(URI(item.url).host)
     price = service.get_price(item.url)
     Crono.logger.info("Updating item price with #{price}")
     prev_price = item.last_price
@@ -9,7 +9,7 @@ class UpdatePriceTask
     item.last_price_update = Time.now
     item.save!
     Crono.logger.info("Checking notifications")
-    NotificationService.new(item).check(prev_price)
+    NotificationSender.new(item).check(prev_price)
     Crono.logger.info("Storing historic data")
     PriceHistoryService.new.update_price(item, price)
   end
