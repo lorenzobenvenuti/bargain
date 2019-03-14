@@ -11,6 +11,8 @@ RUN rm -rf log/*
 COPY migrate.sh /usr/bin/
 RUN chmod +x /usr/bin/migrate.sh
 
+RUN curl -s -o /usr/bin/wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && chmod +x /usr/bin/wait-for-it.sh
+
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
