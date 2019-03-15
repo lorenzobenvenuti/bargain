@@ -9,10 +9,11 @@ describe NotificationSender do
 
   let(:notification2) { Notification.new(threshold: 110) }
 
-  before(:each) do
-    @factory = double()
-    allow(@factory).to receive(:notification_sender).with(notification1).and_return(sender1)
-    allow(@factory).to receive(:notification_sender).with(notification2).and_return(sender2)
+  let(:factory) do
+    factory = double()
+    allow(factory).to receive(:notification_sender).with(notification1).and_return(sender1)
+    allow(factory).to receive(:notification_sender).with(notification2).and_return(sender2)
+    factory
   end
 
   describe '#send' do
@@ -21,7 +22,7 @@ describe NotificationSender do
       expect(sender1).not_to receive(:send_below_threshold)
       expect(sender1).not_to receive(:send_above_threshold)
       expect(sender2).to receive(:send_below_threshold).with(item)
-      sut = NotificationSender.new(item, @factory)
+      sut = NotificationSender.new(item, factory)
       sut.send(115)
     end
 
@@ -29,7 +30,7 @@ describe NotificationSender do
       item = Item.new(last_price: 105, notifications: [notification1, notification2])
       expect(sender1).to receive(:send_above_threshold).with(item)
       expect(sender2).to receive(:send_below_threshold).with(item)
-      sut = NotificationSender.new(item, @factory)
+      sut = NotificationSender.new(item, factory)
       sut.send(95)
     end
 
@@ -38,7 +39,7 @@ describe NotificationSender do
       expect(sender1).not_to receive(:send_below_threshold)
       expect(sender1).not_to receive(:send_above_threshold)
       expect(sender2).to receive(:send_above_threshold).with(item)
-      sut = NotificationSender.new(item, @factory)
+      sut = NotificationSender.new(item, factory)
       sut.send(105)
     end
 
@@ -46,7 +47,7 @@ describe NotificationSender do
       item = Item.new(last_price: 115, notifications: [notification1, notification2])
       expect(sender1).to receive(:send_above_threshold).with(item)
       expect(sender2).to receive(:send_above_threshold).with(item)
-      sut = NotificationSender.new(item, @factory)
+      sut = NotificationSender.new(item, factory)
       sut.send(95)
     end
   end
