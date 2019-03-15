@@ -32,18 +32,20 @@ class NotificationSender
     @sender_factory = sender_factory
   end
 
+  def send(prev_price)
+    @item.notifications.each do |notification|
+      handle_notification(notification, prev_price)
+    end
+  end
+
+  private
+
   def handle_notification(notification, prev_price)
     sender = @sender_factory.notification_sender(notification)
     if notification.price_went_above_threshold?(@item.last_price, prev_price)
       sender.send_above_threshold(@item)
     elsif notification.price_is_below_threshold?(@item.last_price, prev_price)
       sender.send_below_threshold(@item)
-    end
-  end
-
-  def check(prev_price)
-    @item.notifications.each do |notification|
-      handle_notification(notification, prev_price)
     end
   end
 end

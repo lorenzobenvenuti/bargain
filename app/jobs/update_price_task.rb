@@ -9,7 +9,7 @@ class UpdatePriceTask
     item.last_price_update = Time.now
     item.save!
     Crono.logger.info("Checking notifications")
-    NotificationSender.new(item).check(prev_price)
+    NotificationSender.new(item).send(prev_price)
     Crono.logger.info("Storing historic data")
     PriceHistoryService.new.update_price(item, price)
   end

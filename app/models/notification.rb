@@ -6,7 +6,8 @@ class Notification < ApplicationRecord
   validates :notification_type, inclusion: { in: %w(email) }
 
   def price_went_above_threshold?(curr_price, prev_price)
-    !prev_price.nil? && prev_price <= threshold && curr_price > threshold
+    return false if prev_price.nil?
+    prev_price <= threshold && curr_price > threshold
   end
 
   def price_is_below_threshold?(curr_price, prev_price)
