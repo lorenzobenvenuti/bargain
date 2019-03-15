@@ -37,8 +37,10 @@ class AttrRule
   end
 
   def apply(value)
-    doc = Nokogiri::HTML(value)
-    doc.attr(name).strip
+    fragment = Nokogiri::XML.fragment(value)
+    value = fragment.child[@name]
+    return value if value.nil?
+    value.strip
   end
 end
 
