@@ -2,7 +2,7 @@
 
 set -e
 
-cd /price_tracker
+cd /bargain
 
 echo "Performing database migrations"
 rails db:migrate

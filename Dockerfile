@@ -1,10 +1,10 @@
 FROM ruby:2.5.1
-RUN mkdir /price_tracker
-WORKDIR /price_tracker
-COPY Gemfile /price_tracker/Gemfile
-COPY Gemfile.lock /price_tracker/Gemfile.lock
+RUN mkdir /bargain
+WORKDIR /bargain
+COPY Gemfile /bargain/Gemfile
+COPY Gemfile.lock /bargain/Gemfile.lock
 RUN bundle install
-COPY . /price_tracker
+COPY . /bargain
 
 RUN rm -rf log/*
 

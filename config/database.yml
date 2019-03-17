@@ -23,9 +23,9 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: <%= ENV['PRICE_TRACKER_DB_NAME'] %>
+  database: <%= ENV['BARGAIN_DB_NAME'] %>
   pool: 5
-  username: <%= ENV['PRICE_TRACKER_DB_USER'] %>
-  password: <%= ENV['PRICE_TRACKER_DB_PASSWORD'] %>
-  host: <%= ENV['PRICE_TRACKER_DB_HOST'] || 'localhost' %>
-  port: <%= ENV['PRICE_TRACKER_DB_PORT'] || 5432 %>
+  username: <%= ENV['BARGAIN_DB_USER'] %>
+  password: <%= ENV['BARGAIN_DB_PASSWORD'] %>
+  host: <%= ENV['BARGAIN_DB_HOST'] || 'localhost' %>
+  port: <%= ENV['BARGAIN_DB_PORT'] || 5432 %>
