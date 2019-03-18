@@ -110,13 +110,13 @@ curl -X POST -H 'Content-type:application/json' -d @amazon_item.json localhost:3
 Perform database migrations:
 
 ```bash
-docker run -it --rm -e RAILS_ENV=production -e BARGAIN_DB_NAME=<db-name> -e BARGAIN_DB_USER=<db-user> -e BARGAIN_DB_PASSWORD=<db-password> -e BARGAIN_DB_HOST=<db-host> -e BARGAIN_DB_PORT=<db-port> --entrypoint migrate.sh lorenzobenvenuti/bargain
+docker run -it --rm -e RAILS_ENV=production -e BARGAIN_DB_NAME=<db-name> -e BARGAIN_DB_USER=<db-user> -e BARGAIN_DB_PASSWORD=<db-password> -e BARGAIN_DB_HOST=<db-host> -e BARGAIN_DB_PORT=<db-port> -e SECRET_KEY_BASE=<secret-key> --entrypoint migrate.sh lorenzobenvenuti/bargain
 ```
 
 Execute the application:
 
 ```bash
-docker run -d --name bargain -p 3000:3000 -e RAILS_ENV=production -e BARGAIN_DB_NAME=<db-name> -e BARGAIN_DB_USER=<db-user> -e BARGAIN_DB_PASSWORD=<db-password> -e BARGAIN_DB_HOST=<db-host> -e BARGAIN_DB_PORT=<db-port> -e RENDERTRON_URL=<rendertron-url> -e ELASTICSEARCH_URL=<elasticsearch-url> -e SMTP_HOST=<smtp-host> lorenzobenvenuti/bargain
+docker run -d --name bargain -p 3000:3000 -e RAILS_ENV=production -e BARGAIN_DB_NAME=<db-name> -e BARGAIN_DB_USER=<db-user> -e BARGAIN_DB_PASSWORD=<db-password> -e BARGAIN_DB_HOST=<db-host> -e BARGAIN_DB_PORT=<db-port> -e RENDERTRON_URL=<rendertron-url> -e ELASTICSEARCH_URL=<elasticsearch-url> -e SMTP_HOST=<smtp-host> -e SECRET_KEY_BASE=<secret-key> lorenzobenvenuti/bargain
 ```
 
 ## TODO
