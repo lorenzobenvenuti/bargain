@@ -6,7 +6,7 @@ COPY Gemfile.lock /bargain/Gemfile.lock
 RUN bundle install
 COPY . /bargain
 
-RUN rm -rf log/*
+RUN mkdir -p /bargain/tmp/pids && rm -rf log/*
 
 COPY migrate.sh /usr/bin/
 RUN chmod +x /usr/bin/migrate.sh
