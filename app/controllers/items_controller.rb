@@ -43,7 +43,7 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.permit(:name, :url)
+    params.permit(:name, :url, :interval)
   end
 
   def notifications_params
