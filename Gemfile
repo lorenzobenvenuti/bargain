@@ -32,7 +32,7 @@ gem 'daemons', '~> 1.3'
 
 gem 'elasticsearch', '~> 6.1'
 
-gem 'pg', '~> 1.0'
+gem 'pg', '1.0.0'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
