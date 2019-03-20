@@ -15,7 +15,7 @@ class UpdatePriceTask
   end
 
   def perform
-    Item.all.each do |item|
+    Item.find_each do |item|
       unless item.price_must_be_calculated?(Time.now)
         Crono.logger.info("#{item.name} was updated at #{item.last_price_update} - skipping")
         next
